@@ -101,6 +101,7 @@ export default withRouter(({history, location, match: {params}}) => {
 					filterBy: params.filterBy,
 					sortBy: params.sortBy,
 					taggedWith: params.taggedWith,
+					creatorId: creatorId
 				},
 				params.taggedWith === 'my-watched-tags'
 					? subscribedTags.map((tag) => ({
