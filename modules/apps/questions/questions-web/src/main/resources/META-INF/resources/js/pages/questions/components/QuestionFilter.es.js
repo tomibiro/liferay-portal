@@ -78,6 +78,7 @@ const getFilterValues = (form, tags) => {
 		filterBy: '',
 		resultBar: [],
 		sortBy: '',
+		creatorId: ''
 	};
 
 	const sortOption = sortedByOptions.find(({value}) => value === form.sortBy);
@@ -130,6 +131,12 @@ const getFilterValues = (form, tags) => {
 		query.filterBy = `${
 			query.filterBy ?? ''
 		} (keywords/any(x:${filterKeyword}))`;
+	}
+
+	if (query.creatorId) {
+		const creatorIdFilter = `creatorId eq ${query.creatorId}`
+
+		query.filterBy += query.filterBy ? ` and ${creatorIdFilter}` : creatorIdFilter;
 	}
 
 	return query;

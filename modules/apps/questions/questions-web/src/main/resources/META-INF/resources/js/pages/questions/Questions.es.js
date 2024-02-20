@@ -29,7 +29,7 @@ import useQuestionsURLUtil from './hooks/useQuestionsURLUtil.es';
 
 const MAX_NUMBER_OF_QUESTIONS = 500;
 
-export default withRouter(({history, location, match: {params}}) => {
+export default withRouter(({history, location, match: {params}}) => { //it is exported but used only in tests?
 	const {creatorId, sectionTitle} = params;
 
 	const urlParams = useQuestionsURLParameters(location);
@@ -52,7 +52,7 @@ export default withRouter(({history, location, match: {params}}) => {
 
 	const siteKey = context.siteKey;
 
-	const {data, loading: tagLoading} = useQuery(
+	const {data, loading: tagLoading} = useQuery( //what is this query calling?
 		getTagsOrderByDateCreatedQuery,
 		{
 			useCache: false,
@@ -98,9 +98,10 @@ export default withRouter(({history, location, match: {params}}) => {
 
 			const filteredValues = getFilterValues(
 				{
-					filterBy: params.filterBy,
+					filterBy: params.filterBy, //why do not add as an extra filterBy?
 					sortBy: params.sortBy,
 					taggedWith: params.taggedWith,
+					creatorId: creatorId //here add creatorId?
 				},
 				params.taggedWith === 'my-watched-tags'
 					? subscribedTags.map((tag) => ({
