@@ -4926,8 +4926,16 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		Date lockoutDate = null;
 
+		//toDo: if it is still lockout, then new lockout date set up?
 		if (lockout) {
-			lockoutDate = new Date();
+			//toDo: check if lockout timer is over
+			long lockoutTimer = passwordPolicy.getLockoutDuration();
+			if (user.getLockoutDate().getTime() + lockoutTimer < user.getLastFailedLoginDate().getTime()){
+				//toDo: if time for lockout is still spending, then lockou Date should be new Date (start again the timer)
+				lockoutDate = new Date();
+			} else {
+				lockout = false;
+			}
 		}
 
 		user.setLockout(lockout);
