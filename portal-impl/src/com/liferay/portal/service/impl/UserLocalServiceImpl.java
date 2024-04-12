@@ -4929,9 +4929,9 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		//toDo: if it is still lockout, then new lockout date set up?
 		if (lockout) {
 			//toDo: check if lockout timer is over
-			long lockoutTimer = passwordPolicy.getLockoutDuration();
-			if (user.getLockoutDate().getTime() + lockoutTimer < user.getLastFailedLoginDate().getTime()){
-				//toDo: if time for lockout is still spending, then lockou Date should be new Date (start again the timer)
+			long lockoutDuration = passwordPolicy.getLockoutDuration();
+			if (user.getLockoutDate().getTime() + lockoutDuration < user.getLoginDate().getTime()){
+				//toDo: if time for lockout is still spending, then lockout Date should be new Date (start again the timer)
 				lockoutDate = new Date();
 			} else {
 				lockout = false;
@@ -6320,6 +6320,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 							user.getUserId(), headerMap, parameterMap);
 					}
 				}
+				//toDo: start an else case, where restore faulure counters?
 			}
 		}
 		catch (Exception exception) {
