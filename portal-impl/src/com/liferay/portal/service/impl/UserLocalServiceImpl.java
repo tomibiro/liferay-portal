@@ -4929,8 +4929,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		//toDo: if it is still lockout, then new lockout date set up?
 		if (lockout) {
 			//toDo: check if lockout timer is over
-			long lockoutDuration = passwordPolicy.getLockoutDuration();
-			if (user.getLockoutDate().getTime() + lockoutDuration < user.getLoginDate().getTime()){
+			long lockoutDuration = passwordPolicy.getLockoutDuration() * 1000;
+			if ((user.getLockoutDate().getTime() + lockoutDuration) > new Date().getTime()){
 				//toDo: if time for lockout is still spending, then lockout Date should be new Date (start again the timer)
 				lockoutDate = new Date();
 			} else {
@@ -6303,6 +6303,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 				if ((failedLoginAttempts >= maxFailures) &&
 					(maxFailures != 0)) {
+				//toDo: here must be a check about the lockout time?
 
 					if (authType.equals(CompanyConstants.AUTH_TYPE_EA)) {
 						AuthPipeline.onMaxFailuresByEmailAddress(
