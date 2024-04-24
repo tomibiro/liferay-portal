@@ -53,8 +53,12 @@ public class FacebookConnectNavigationPreJSPDynamicInclude
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		String layoutType = themeDisplay.getLayout(
+		).getType();
+
 		if (strutsAction.startsWith("/login/facebook_connect") ||
-			!_facebookConnect.isEnabled(themeDisplay.getCompanyId())) {
+			!_facebookConnect.isEnabled(themeDisplay.getCompanyId()) ||
+			layoutType.equals(_UTILITY_PAGE_TYPE)) {
 
 			return;
 		}
@@ -98,6 +102,8 @@ public class FacebookConnectNavigationPreJSPDynamicInclude
 	protected Log getLog() {
 		return _log;
 	}
+
+	private static final String _UTILITY_PAGE_TYPE = "utility";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		FacebookConnectNavigationPreJSPDynamicInclude.class);
