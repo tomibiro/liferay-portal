@@ -21,8 +21,6 @@ import java.util.concurrent.ConcurrentMap;
 public class MethodParametersResolverUtil {
 
 	public static MethodParameter[] resolveMethodParameters(Method method) {
-		Parameter[] parameters = method.getParameters();
-
 		MethodParameter[] methodParameters = _methodParameters.get(method);
 
 		if (methodParameters != null) {
@@ -34,6 +32,10 @@ public class MethodParametersResolverUtil {
 		ClassLoader classLoader = clazz.getClassLoader();
 
 		Class<?>[] methodParameterTypes = method.getParameterTypes();
+
+		Parameter[] parameters = method.getParameters();
+
+		methodParameters = new MethodParameter[parameters.length];
 
 		for (int i = 0; i < parameters.length; i++) {
 			String name = parameters[i].getName();
