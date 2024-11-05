@@ -38,10 +38,11 @@ public class MethodParametersResolverUtil {
 		methodParameters = new MethodParameter[parameters.length];
 
 		for (int i = 0; i < parameters.length; i++) {
-			String name = parameters[i].getName();
-			String signature = parameters[i].getParameterizedType().getTypeName();
-
-			methodParameters[i] = new MethodParameter(classLoader, name, signature, methodParameterTypes[i]);
+			methodParameters[i] = new MethodParameter(
+				classLoader, parameters[i].getName(),
+				parameters[i].getParameterizedType(
+				).getTypeName(),
+				methodParameterTypes[i]);
 		}
 
 		_methodParameters.put(method, methodParameters);
